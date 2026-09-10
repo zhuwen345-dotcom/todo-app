@@ -74,19 +74,28 @@ export function TodoRow({
     >
       <button
         type="button"
-        onClick={() => onToggle(todo.id)}
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          onToggle(todo.id)
+        }}
         aria-label={todo.completed ? '标记为未完成' : '标记为已完成'}
-        className={`flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-[1.5px] transition-colors ${
-          todo.completed
-            ? 'border-[#007AFF] bg-[#007AFF] text-white'
-            : 'border-[#C7C7CC] bg-transparent text-transparent dark:border-[#48484A]'
-        }`}
+        className="flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center"
       >
+        <span
+          className={`flex h-[22px] w-[22px] items-center justify-center rounded-full border-[1.5px] transition-colors ${
+            todo.completed
+              ? 'border-[#007AFF] bg-[#007AFF] text-white'
+              : 'border-[#C7C7CC] bg-transparent text-transparent dark:border-[#48484A]'
+          }`}
+        >
         <Check
           size={13}
           strokeWidth={3}
           className={todo.completed ? 'animate-check-pop' : ''}
         />
+        </span>
       </button>
 
       {editing && !overlay ? (

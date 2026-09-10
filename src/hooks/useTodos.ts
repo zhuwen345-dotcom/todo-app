@@ -104,17 +104,18 @@ export function useTodos(userId: string) {
 
   const toggleTodo = useCallback(async (id: string) => {
     let previous: Todo[] = []
-    let nextCompleted = false
+    let nextTodo: Todo | undefined
     setTodos((current) => {
       previous = current
       return current.map((todo) => {
         if (todo.id !== id) return todo
-        nextCompleted = !todo.completed
-        return { ...todo, completed: nextCompleted }
+        nextTodo = { ...todo, completed: !todo.completed }
+        return nextTodo
       })
     })
+    if (!nextTodo) return
     try {
-      await todosApi.update(id, { completed: nextCompleted })
+      await todosApi.save(nextTodo)
       setError(null)
     } catch (err) {
       setTodos(previous)
@@ -125,15 +126,21 @@ export function useTodos(userId: string) {
   const updateTodo = useCallback(async (id: string, title: string) => {
     const trimmed = title.trim()
     let previous: Todo[] = []
+    let nextTodo: Todo | undefined
     setTodos((current) => {
       previous = current
       if (!trimmed) return current.filter((todo) => todo.id !== id)
-      return current.map((todo) => (todo.id === id ? { ...todo, title: trimmed } : todo))
+      return current.map((todo) => {
+        if (todo.id !== id) return todo
+        nextTodo = { ...todo, title: trimmed }
+        return nextTodo
+      })
     })
     try {
-      const result = await todosApi.update(id, { title })
-      if (!result) {
-        setTodos((current) => current.filter((todo) => todo.id !== id))
+      if (!trimmed) {
+        await todosApi.remove(id)
+      } else if (nextTodo) {
+        await todosApi.save(nextTodo)
       }
       setError(null)
     } catch (err) {

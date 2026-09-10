@@ -8,6 +8,8 @@ Apple 风格的 React + TypeScript Todo 应用：云端登录、暗黑模式、�
 
 **https://todo-app-zhuwen345.netlify.app**
 
+手机勾选完成已在 v1.1.1 修复。
+
 备用（部分网络需要代理）：
 
 https://todo-app-pi-one-97.vercel.app
