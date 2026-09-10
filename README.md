@@ -2,7 +2,17 @@
 
 Apple 风格的 React + TypeScript Todo 应用：云端登录、暗黑模式、拖拽排序、多端实时同步。
 
-线上地址：https://todo-app-pi-one-97.vercel.app
+## 线上地址
+
+推荐（国内可直接打开）：
+
+**https://todo-app-zhuwen345.netlify.app**
+
+备用（部分网络需要代理）：
+
+https://todo-app-pi-one-97.vercel.app
+
+更新记录见 [CHANGELOG.md](./CHANGELOG.md)。
 
 ## 开始
 
@@ -43,27 +53,27 @@ npm run dev
 - 全部 / 未完成 / 已完成筛选
 - 电脑与手机实时同步同一账号的数据
 
-## 部署到 Vercel
+## 部署
 
-在 Vercel 项目里添加环境变量（Production / Preview 都要加）：
+静态托管即可，模拟逻辑已换成 Supabase 云端。构建时需要：
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`（publishable key 填这里即可）
 
-然后：
+### Netlify（推荐）
+
+仓库里已有 `netlify.toml`。把站点发布目录设为 `dist`，构建命令为 `node scripts/build.mjs`，并在 Netlify 环境变量中填入上面两项。
+
+当前生产站：https://todo-app-zhuwen345.netlify.app
+
+### Vercel
 
 ```bash
 npx vercel login
 npm run deploy
 ```
 
-Windows 也可双击 `deploy.cmd`，或：
-
-```powershell
-.\scripts\deploy.ps1 --prod
-```
-
-Vite 会把 `VITE_` 变量打进前端包，anon key 本来就是公开的，真正的权限靠数据库 RLS。
+Windows 也可双击 `deploy.cmd`。`*.vercel.app` 在部分网络下可能无法直接访问。
 
 ## 技术
 

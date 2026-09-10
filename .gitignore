@@ -27,5 +27,6 @@ dist-ssr
 *.sw?
 
 .vercel
+.netlify
 .env*
 !.env.example
