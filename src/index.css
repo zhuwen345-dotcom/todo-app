@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI",
+    sans-serif;
+  --color-system-blue: #007aff;
+  --color-system-red: #ff3b30;
+  --color-system-gray: #8e8e93;
+  --color-grouped: #f2f2f7;
+  --color-grouped-dark: #000000;
+  --color-card: #ffffff;
+  --color-card-dark: #1c1c1e;
+  --color-label: #1d1d1f;
+  --color-label-dark: #f5f5f7;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-grouped);
+  color: var(--color-label);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark body {
+  background: var(--color-grouped-dark);
+  color: var(--color-label-dark);
+}
+
+button,
+input {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes check-pop {
+  0% {
+    transform: scale(0.62);
+  }
+  55% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-check-pop {
+  animation: check-pop 0.28s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise-in {
+  animation: rise-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.apple-spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(142, 142, 147, 0.35);
+  border-top-color: #8e8e93;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.apple-spinner-light {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
